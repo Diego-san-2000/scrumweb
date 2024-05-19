@@ -1,0 +1,138 @@
+{{> fragments/header_inside}}
+<div class="container">
+    <div class="row">
+        <h1 class="text-center">Create project</h1>
+        <div class="col-lg-12">
+            <form>
+                <div class="container">
+                    <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="nombre" type="text" placeholder="Nombre" name="nombre" required value="Test project"/>
+                            <label for="nombre">Project's name</label>
+                        </div>
+        
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="inicioSprint" type="date" placeholder="Inicio Sprint" name="inicioSprint" required  value="{{fechaCrear}}" />
+                            <label for="inicioSprint">Start of Sprint</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="finSprint" type="date" placeholder="Fin Sprint" name="finSprint" required  value="{{fechaFinalizar}}" />
+                            <label for="finSprint">End of Sprint</label>
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <div class="col-lg-12">
+                            <h2 class="text-center">Users</h2>
+                            <div id="participantes">
+                                <!-- FILA SCRUM MASTER -->
+                                <div id="1" class="row participante">
+                                    <div class="col-lg-3">
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control" id="usuario1" type="text" placeholder="Username" name="usuario1" required/>
+                                            <label for="usuario1">Username</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control" id="email1" type="text" placeholder="Email" name="email1" required/>
+                                            <label for="email1">Email</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control" id="pass1" type="password" placeholder="Password" name="pass1" required/>
+                                            <label for="pass1">Password</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control" id="rol1" type="text" readonly value="Scrum Master">
+                                            <label for="rol1">Role</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- FILA PRODUCT OWNER -->
+                                <div id="2" class="row participante">
+                                    <div class="col-lg-3">
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control" id="usuario2" type="text" placeholder="Username" name="usuario2" required/>
+                                            <label for="usuario2">Username</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control" id="email2" type="text" placeholder="Email" name="email2" required/>
+                                            <label for="email2">Email</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control" id="pass2" type="password" placeholder="Password" name="pass2" required/>
+                                            <label for="pass2">Password</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control" id="rol2" type="text" readonly value="Product Owner">
+                                            <label for="rol2">Role</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- FILA PRIMER DEVELOPER -->
+                                <div id="3" class="row participante">
+                                    <div class="col-lg-3">
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control" id="usuario3" type="text" placeholder="Username"  name="usuario3" required>
+                                            <label for="usuario3">Username</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control" id="email3" type="text" placeholder="Email" name="email3" required>
+                                            <label for="email3">Email</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control" id="pass3" type="password" placeholder="Password" name="pass3" required>
+                                            <label for="pass3">Password</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-1">
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control subTeam" id="subTeam3" type="number" min="0" max="10" required>
+                                            <label for="subTeam3">SubTeam</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control rol" id="rol3" type="text" readonly value="Developer">
+                                            <label for="rol3">Role</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btn btn-red" onclick="crear_row_participantes()">Add user</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-1 d-grid">
+                            <button class="btn btn-red" type="button" onclick="generarJsonProyecto('/api/proyecto/', true, 'POST')">Create</button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<script src="/js/proyecto/proyecto.js"></script>
+{{> fragments/footer}}

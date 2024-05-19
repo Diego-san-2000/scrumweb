@@ -1,0 +1,154 @@
+{{> fragments/header_inside}}
+<div class="container">
+    <div class="row">
+        <h1 class="text-center mb-4">Editing user {{usuario.username}}</h1>
+        <div class="col-lg-4">
+            <h2 class="text-center">Your company</h2>
+            <form>
+                <div class="col-lg-12 mt-4">
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="text" value="{{empresa.username}}" disabled/>
+                        <label for="username">Company's name</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="email" value="{{empresa.email}}" disabled/>
+                        <label for="username">Company's email</label>
+                    </div>
+                </div>
+            </form>
+            <h2 class="text-center">Your project</h2>
+            <form>
+                <div class="col-lg-12 mt-4">
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="text" value="{{proyecto.nombre}}" disabled/>
+                        <label for="username">Project's name</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="text" value="{{proyecto.numeroSprint}}" disabled/>
+                        <label for="username">Sprint number</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="text" value="{{inicioSprint}}" disabled/>
+                        <label for="username">Start of Sprint</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="text" value="{{finSprint}}" disabled/>
+                        <label for="username">End of Sprint</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-8">
+        <h2 class="text-center">User data</h2>
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="contenedor-imagen-perfil">
+                <img class="imagen-perfil"
+                {{#imagen}} src="data:image/jpg;base64, {{.}}" alt=""{{/imagen}}
+                {{^imagen}}src="/img/usuarios/usuario_sin_foto.jpg" {{/imagen}}>
+                </div>
+                
+                <form enctype="multipart/form-data" action="/usuario/{{usuario.id}}/imagen" method="POST">
+                    <div class="input-group">
+                      <label for="files">Select profile photo</label>
+                      <input id="file" type="file" name="multipartImage" required>
+                    </div>
+                    <button class="submit-btn btn btn-red" type="submit">Save image</button>
+                  </form>
+            </div>
+            <div class="col-lg-7">
+                <form action="/usuario/editando/{{usuario.id}}" method="post">
+                    <div class="col-lg-12 mt-4">
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="username" type="text" placeholder="Usuario" name="username" value="{{usuario.username}}"/>
+                            <label for="username">Username</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="email" type="text" placeholder="Usuario" name="email" value="{{usuario.email}}" required/>
+                            <label for="email">Email</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="pass" type="password" placeholder="Usuario" name="pass"/>
+                            <label for="pass">Password</label>
+                            <span>Leave in blank to not modify</span>
+                        </div>
+                    </div>
+                    {{#usuario.scrumSubTeam}}
+                    <div class="col-lg-12">
+                        <div class="form-floating mb-3">
+                            <input class="form-control"
+                            id="ScrumTeam" type="number"
+                            placeholder="ScrumTeam"
+                            name="ScrumTeam" value="{{usuario.scrumSubTeam}}" required/>
+
+                            <label for="ScrumTeam">ScrumTeam</label>
+                        </div>
+                    </div>
+                    {{/usuario.scrumSubTeam}}
+                    {{^usuario.scrumSubTeam}}
+                    {{/usuario.scrumSubTeam}}
+                    <div class="col-lg-12">
+                        <div class="form-floating mb-3">
+                            <select class="form-control" id="rol" name="rol" required="">
+                                <option id="option-1" {{#SCRUM_MASTER}} selected {{/SCRUM_MASTER}} value="SCRUM_MASTER">Scrum Master</option>
+                                <option id="option-2" {{#PRODUCT_OWNER}} selected {{/PRODUCT_OWNER}} value="PRODUCT_OWNER">Product Owner</option>
+                                <option id="option-3" {{#DEVELOPER}} selected {{/DEVELOPER}} value="DEVELOPER">Developer</option>
+                                <option id="option-4" {{#STAKEHOLDER}} selected {{/STAKEHOLDER}} value="STAKEHOLDER">Stakeholder</option>
+                            </select>
+                            <label for="rol1">Select role</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <span>Skills:</span>
+                            <!--Usado por el js para generar habildiades-->
+                            <ul id="contenedorTecnologias">
+                                {{#usuario.tecnologias}}
+                                <li id="fila-{{id}}" class="row mt-4">
+                                    <div class="col-lg-1">
+                                        <i class="bi bi-trash" onclick="borrar('fila-{{id}}')"></i>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <select id="categoria-{{id}}" class="form-control select">
+                                            <option value="SOCIAL">Social</option>
+                                            <option value="TECNOLOGIA">Tecnology</option>
+                                            <option value="NEGOCIO">Business</option>
+                                            <option value="CREATIVA">Creative</option>
+                                            <option value="EDUCATIVA">Educational</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-7">
+                                        <input id="item-{{id}}" type="text" class="form-control" value="{{item}}">
+                                        <input class="categoria" type="text" style="display: none;" value="{{categoria}}">
+                                    </div>
+                                </li>
+                                {{/usuario.tecnologias}}
+                                {{^usuario.tecnologias}}
+                                {{/usuario.tecnologias}}
+                            </ul>
+                        </div>
+                        <div class="text-center">
+                            <a class="btn btn-red" onclick="anadirTecnologia()">Add skill</a>
+                        </div>
+                    </div>
+                    <a class="btn btn-red" onclick="generarJsonPersona({{usuario.id}})">Edit</a>
+                    {{#esEmpresa}}
+                    <a class="btn btn-red" onclick="enviar('/api/persona/{{usuario.id}}', null, 'DELETE')">Delete</a>
+                    {{/esEmpresa}}
+                    {{^esEmpresa}}
+                    {{/esEmpresa}}
+                </form>
+            </div>
+        </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script src="/js/usuario/usuario.js"></script>
+{{> fragments/footer}}

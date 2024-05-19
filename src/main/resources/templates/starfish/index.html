@@ -1,0 +1,84 @@
+{{> fragments/header_inside}}
+<div class="container-fluid">
+    <h1 class="text-center">Starfish retrospective</h1>
+    <h2 class="text-center">Sprint {{sprint.numeroSprint}}</h2>
+    <div class="estrella">
+        <div id="seguirHaciendoContainer" class="lista">
+            <ul id="seguirHaciendo">
+                {{#seguirHaciendo}}
+                <li><i class="bi bi-trash" onclick="deleteItem(this)"></i>{{.}}</li>
+                {{/seguirHaciendo}}
+                {{^seguirHaciendo}}
+                {{/seguirHaciendo}}
+            </ul>
+        </div>
+        <div id="masDeContainer" class="lista">
+            <ul id="masDe">
+                {{#masDe}}
+                <li><i class="bi bi-trash" onclick="deleteItem(this)"></i>{{.}}</li>
+                {{/masDe}}
+                {{^masDe}}
+                {{/masDe}}
+            </ul>
+        </div>
+        <div id="menosDeContainer" class="lista">
+            <ul id="menosDe">
+                {{#menosDe}}
+                <li><i class="bi bi-trash" onclick="deleteItem(this)"></i>{{.}}</li>
+                {{/menosDe}}
+                {{^menosDe}}
+                {{/menosDe}}
+            </ul>
+        </div>
+        <div id="empezarAHacerContainer" class="lista">
+            <ul id="empezarAHacer">
+                {{#empezarAHacer}}
+                <li><i class="bi bi-trash" onclick="deleteItem(this)"></i>{{.}}</li>
+                {{/empezarAHacer}}
+                {{^empezarAHacer}}
+                {{/empezarAHacer}}
+            </ul>
+        </div>
+        <div id="dejarDeHacerContainer" class="lista">
+            <ul id="dejarDeHacer">
+                {{#dejarDeHacer}}
+                <li><i class="bi bi-trash" onclick="deleteItem(this)"></i>{{.}}</li>
+                {{/dejarDeHacer}}
+                {{^dejarDeHacer}}
+                {{/dejarDeHacer}}
+            </ul>
+        </div>
+    </div>
+    <form id="contactForm" class="form-starfish" action="/registrarse" method="post">
+        <div class="form-floating mb-3">
+            <input class="form-control" id="texto" type="texto" placeholder="Text" name="username" required>
+            <label for="texto">Text</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <select class="form-control" id="tipo" name="tipo" required>
+                <option value="" label=" " hidden></option>
+                <option value="seguirHaciendo">Keep doing</option>
+                <option value="masDe">More of</option>
+                <option value="menosDe">Less of</option>
+                <option value="empezarAHacer">Start doing</option>
+                <option value="dejarDeHacer">Stop doing</option>
+            </select>
+            <label for="tipo">Select</label>
+        </div>
+        <div class="d-grid">
+            <button class="btn btn-lg btn-red" type="button" onclick="anadir()">Add</button>
+            <button class="btn btn-lg btn-red" type="button" onclick="guardar({{starfish.id}})">Save</button>
+
+        </div>
+    </form>
+</div>
+<div class="container mt-4">
+    <div class="row justify-content-center text-center">
+        <div class="col-lg-1">
+            <a href="/proyecto/{{proyecto.id}}/starfish/historial" class="btn btn-red">History</a>
+        </div>
+    </div>
+</div>
+<script src="/js/starfish/starfish.js"></script>
+{{> fragments/footer}}

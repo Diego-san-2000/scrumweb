@@ -1,0 +1,55 @@
+
+{{> fragments/header_inside}}
+<div class="container-fluid">
+    <h1 class="text-center">Starfish retrospective</h1>
+    <h2 class="text-center">Sprint {{sprint.numeroSprint}}</h2>
+    <div class="estrella">
+        <div id="seguirHaciendoContainer" class="lista">
+            <ul id="seguirHaciendo">
+                {{#seguirHaciendo}}
+                <li>{{.}}</li>
+                {{/seguirHaciendo}}
+                {{^seguirHaciendo}}
+                {{/seguirHaciendo}}
+            </ul>
+        </div>
+        <div id="masDeContainer" class="lista">
+            <ul id="masDe">
+                {{#masDe}}
+                <li>{{.}}</li>
+                {{/masDe}}
+                {{^masDe}}
+                {{/masDe}}
+            </ul>
+        </div>
+        <div id="menosDeContainer" class="lista">
+            <ul id="menosDe">
+                {{#menosDe}}
+                <li>{{.}}</li>
+                {{/menosDe}}
+                {{^menosDe}}
+                {{/menosDe}}
+            </ul>
+        </div>
+        <div id="empezarAHacerContainer" class="lista">
+            <ul id="empezarAHacer">
+                {{#empezarAHacer}}
+                <li>{{.}}</li>
+                {{/empezarAHacer}}
+                {{^empezarAHacer}}
+                {{/empezarAHacer}}
+            </ul>
+        </div>
+        <div id="dejarDeHacerContainer" class="lista">
+            <ul id="dejarDeHacer">
+                {{#dejarDeHacer}}
+                <li>{{.}}</li>
+                {{/dejarDeHacer}}
+                {{^dejarDeHacer}}
+                {{/dejarDeHacer}}
+            </ul>
+        </div>
+    </div>
+
+</div>
+{{> fragments/footer}}

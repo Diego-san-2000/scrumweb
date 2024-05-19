@@ -1,0 +1,96 @@
+{{> fragments/header_inside}}
+<div class="container">
+    <div class="row">
+        <h1 class="text-center">Edit project</h1>
+        <div class="col-lg-12">
+            <form>
+                <div class="container">
+                    <div class="row justify-content-center mt-4">
+                        <div class="col-lg-6">
+                            <h2 class="text-center">{{proyecto.nombre}}</h2>
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="nombre" type="text" placeholder="Nombre" name="nombre" required value="{{proyecto.nombre}}">
+                                <label for="nombre">Project's name</label>
+                            </div>
+            
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="inicioSprint" type="date" name="inicioSprint" required  value="{{sprint.inicioSprint}}">
+                                <label for="inicioSprint">Start of Sprint</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="finSprint" type="date" name="finSprint" required  value="{{sprint.finSprint}}">
+                                <label for="finSprint">End of sprint</label>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="row justify-content-center mt-4">
+                        <div class="col-lg-12">
+                            <h2 class="text-center">Users</h2>
+                            <div id="participantes">
+                                {{#proyecto.personas}}
+                                <div class="row participante" id="{{id}}">
+                                    <div class="col-lg-2">
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control" id="usuario{{id}}" type="search" placeholder="Usuario" name="usuario{{id}}" value="{{username}}" required>
+                                            <label for="usuario{{id}}">Username</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control" id="email{{id}}" type="text" placeholder="Usuario" name="email{{id}}" value="{{email}}" required>
+                                            <label for="email{{id}}">Email</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control" id="pass{{id}}" type="password" placeholder="Usuario" name="pass2">
+                                            <label for="pass{{id}}">Password</label>
+                                        </div>
+                                    </div>
+                                    {{#scrumSubTeam}}
+                                    <div class="col-lg-2">
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control subTeam" id="subTeam{{id}}" type="number" min="0" max="10" value="{{scrumSubTeam}}" required>
+                                            <label for="subTeam{{id}}">SubTeam</label>
+                                        </div>
+                                    </div>
+                                    {{/scrumSubTeam}}
+                                    {{^scrumSubTeam}}
+                                    {{/scrumSubTeam}}
+                                    <div class="col-lg-2">
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control rol" id="rol{{id}}" type="text" readonly value="{{rol}}">
+                                            <label for="rol{{id}}">Role</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-1 boton-borrar">
+                                        <div class="form-floating mb-3">
+                                            <button class="btn btn-red m-2" onclick="borrar({{id}})">Borrar</button>
+                                        </div>
+                                    </div>
+                                
+                                </div>
+                                {{/proyecto.personas}}
+                                
+                            </div>
+                            <div class="btn btn-red" onclick="crear_row_participantes()">Add user</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-2 d-grid">
+                            <button class="btn btn-red" type="button" onclick="generarJsonProyecto('/api/proyecto/{{proyecto.id}}', false, 'PUT')">Edit</button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<script src="/js/proyecto/proyecto.js"></script>
+
+{{> fragments/footer}}

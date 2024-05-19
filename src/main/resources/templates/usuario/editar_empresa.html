@@ -1,0 +1,57 @@
+{{> fragments/header_inside}}
+<div class="container">
+    <div class="row justify-content-center">
+        <h1 class="text-center mb-4">Editando el usuario {{usuario.username}}</h1>
+        <div class="col-lg-10">
+        <h2 class="text-center">User data</h2>
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="contenedor-imagen-perfil">
+                <img class="imagen-perfil"
+                {{#imagen}} src="data:image/jpg;base64, {{.}}" alt=""{{/imagen}}
+                {{^imagen}}src="/img/usuarios/usuario_sin_foto.jpg" {{/imagen}}>
+                </div>
+                
+                <form enctype="multipart/form-data" action="/usuario/{{usuario.id}}/imagen" method="POST">
+                    <div class="input-group">
+                      <label for="files">Select profile photo</label>
+                      <input id="file" type="file" name="multipartImage" required>
+                    </div>
+                    <button class="submit-btn btn btn-red" type="submit">Save image</button>
+                  </form>
+            </div>
+            <div class="col-lg-7">
+                <form action="/usuario/editando/{{usuario.id}}" method="post">
+                    <div class="col-lg-12 mt-4">
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="username" type="text" placeholder="Usuario" name="username" value="{{usuario.username}}"/>
+                            <label for="username">Username</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="email" type="text" placeholder="Usuario" name="email" value="{{usuario.email}}" required/>
+                            <label for="email">Email</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="pass" type="password" placeholder="Usuario" name="pass"/>
+                            <label for="pass">Password</label>
+                            <span>Leave in blank to not modify</span>
+                        </div>
+                        
+                    </div>
+                    <a class="btn btn-red" onclick="generarJsonEmpresa({{usuario.id}})">Edit</a>
+                    <a class="btn btn-red" onclick="enviarBorrarEmpresa('{{usuario.id}}')">Delete account</a>
+                </form>
+            </div>
+        </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script src="/js/usuario/usuario.js"></script>
+{{> fragments/footer}}

@@ -1,0 +1,30 @@
+{{> fragments/header}}
+<div class="container">
+    <div class="row">
+       <div class="col-lg-6">
+        {{> fragments/registrarse}}
+        </div>
+        <div class="col-lg-6">
+            <div class="form">
+                <div class="container px-5 my-5">
+                    <h2>Login</h2>
+                    <form id="contactForm" action="login" method="post">
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="email2" type="text" placeholder="Email" name="username" required />
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input class="form-control" type="password" placeholder="password" name="password" required />
+                            <label for="contrasena">Password</label>
+                        </div>
+                        <div class="d-grid">
+                            <input class="btn btn-red btn-lg" type="submit" value="Login">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/form.js"></script>
+{{> fragments/footer}}

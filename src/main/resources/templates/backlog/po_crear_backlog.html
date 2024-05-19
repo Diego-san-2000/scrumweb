@@ -1,0 +1,59 @@
+{{> fragments/header_inside}}
+    <div class="container">
+        <div class="row">
+            <h1 class="text-center">Sprint Planning</h1>
+            <h2 class="text-center">{{proyecto.nombre}}</h2>
+            <p>Sprint {{proyecto.numeroSprint}}</p>
+            <p>Sprint start date: <b>{{inicioSprint}}</b></p>
+            <p>Sprint end date: <b>{{finSprint}}</b></p>
+            <div class="d-flex justify-content-center">
+                <div class="col-lg-10 contenedor-proyecto">
+                    <form>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <h2 class="text-center mt-4">Product Backlog</h2>
+                                <ul id="lista-backlog">
+                                    {{#listaBacklog}}
+                                    <li id="{{id}}">
+                                        <i class="bi bi-trash" onclick="borrar({{id}})"></i>
+                                        <input class="item-backlog-crear" value="{{item}}" required>
+                                    </li>
+                                    {{/listaBacklog}}
+                                    {{^listaBacklog}}
+        
+                                {{/listaBacklog}}
+                                </ul>
+                                <div class="text-center">
+                                    <div onclick="anadirItem()">
+                                        <i class="bi bi-plus-lg icono-anadir icono-anadir-backlog"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 contenedor-textarea">
+                                <h2 class="text-center mt-4">Product goal</h2>
+                                <textarea id="textarea" class="textarea">{{#proyecto.productGoal}}{{.}}{{/proyecto.productGoal}}{{^proyecto.productGoal}}{{/proyecto.productGoal}}</textarea>
+                            </div>
+                            <div class="col-lg-4 contenedor-textarea">
+                                <h2 class="text-center mt-4">Definition of done</h2>
+                                <textarea id="textareadone" class="textarea">{{#proyecto.definitionOfDone}}{{.}}{{/proyecto.definitionOfDone}}{{^proyecto.definitionOfDone}}{{/proyecto.definitionOfDone}}</textarea>
+                            </div>
+                        </div>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-red" onclick="guardar({{sprint.id}}, {{proyecto.id}})">Save</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $(function() {
+        $("#lista-backlog").sortable();
+        $("#lista-backlog").disableSelection();
+    });
+</script>
+<script src="/js/backlog/backlog.js"></script>
+{{> fragments/footer}}

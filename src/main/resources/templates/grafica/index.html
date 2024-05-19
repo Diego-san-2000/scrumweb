@@ -1,0 +1,128 @@
+{{> fragments/header_inside}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<script>
+function showBurnDown(elementId, label1, burndownData, label2, idealData, cumulativa) {
+
+  var speedCanvas = document.getElementById(elementId);
+
+  Chart.defaults.global.defaultFontFamily = "Arial";
+  Chart.defaults.global.defaultFontSize = 14;
+
+  var speedData = {
+    labels: [{{#label}}"{{.}}",{{/label}}],
+    datasets: [
+      {
+        label: label1,
+        data: burndownData,
+        fill: cumulativa, 
+        borderColor: "#EE6868",
+        backgroundColor: "#EE6868",
+        lineTension: 0,
+      },
+      {
+        label: label2,
+        borderColor: "#6C8893",
+        backgroundColor: "#6C8893",
+        lineTension: 0,
+        borderDash: [5, 5],
+        fill: false,
+        data: idealData,
+      },
+    ]
+  };
+
+  var chartOptions = {
+    legend: {
+      display: true,
+      position: 'top',
+      labels: {
+        boxWidth: 80,
+        fontColor: 'black'
+      }
+    },
+    scales: {
+        yAxes: [{
+            ticks: {
+                min: 0,
+                max: Math.round(idealData[0] * 1.1)
+            }
+        }]
+    }
+  };
+
+  var lineChart = new Chart(speedCanvas, {
+    type: 'line',
+    data: speedData,
+    options: chartOptions
+  });
+
+}
+</script>
+</head>
+
+<body>
+  <h1 class="text-center">Graphs</h1>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6">
+          <h2 class="text-center">Burndown</h2>
+      <div class="container d-flex align-items-center justify-content-center">
+        <div class="d-flex justify-content-between col-lg-12"><canvas id="burndown"></canvas></div>
+      </div>
+      </div>
+      <div class="col-lg-6">
+        <h2 class="text-center">Burnup</h2>
+        <div class="container d-flex align-items-center justify-content-center">
+          <div class="d-flex justify-content-between col-lg-12"><canvas id="burnup"></canvas></div>
+        </div>
+      </div>
+      </div>
+      <div class="row container d-flex align-items-center justify-content-center">
+      <div class="col-lg-6">
+        <h2 class="text-center">Cumulative flows</h2>
+        <div class="container d-flex align-items-center justify-content-center">
+          <div class="d-flex justify-content-between col-lg-12"><canvas id="cumulative"></canvas></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container mt-4">
+    <div class="row justify-content-center text-center">
+        <div class="col-lg-1">
+            <a href="/grafica/{{proyecto.id}}/historial"" class="btn btn-red">History</a>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<script>
+showBurnDown (
+  "burndown",
+  "Burn down",
+  [{{#burnDownProgreso}}{{.}},{{/burnDownProgreso}}],
+  "Ideal",
+  [{{#ideal}}{{.}},{{/ideal}}],
+  false
+);
+showBurnDown (
+  "burnup",
+  "Burn up",
+  [{{#burnUpProgreso}}{{.}},{{/burnUpProgreso}}],
+  "Total",
+  [{{#burnUpTotal}}{{.}},{{/burnUpTotal}}],
+  false
+);
+showBurnDown (
+  "cumulative",
+  "Cummulative",
+  [{{#burnUpProgreso}}{{.}},{{/burnUpProgreso}}],
+  "Total",
+  [{{#burnUpTotal}}{{.}},{{/burnUpTotal}}],
+  true
+);
+</script>
+{{> fragments/footer}}

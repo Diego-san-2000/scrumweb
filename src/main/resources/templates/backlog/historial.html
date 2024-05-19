@@ -1,0 +1,45 @@
+{{ > fragments/header_inside}}
+<div class="container">
+    <div class="row">
+        <h1 class="text-center">Product Backlog</h1>
+        <h2 class="text-center mt-4">{{proyecto.nombre}}</h2>
+        <div class="col-lg-12">
+            <table class="table table-bordered table-striped table-hover mt-4" aria-describedby="Votaciones">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Order</th>
+            <th scope="col">Item</th>
+            <th scope="col">Estimation</th>
+            <th scope="col">Status</th>
+            <th scope="col">Day finished</th>
+            <th scope="col">In charge</th>
+            <th scope="col">Email</th>
+            <th scope="col">Sprint</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#listaItems}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{orden}}</td>
+            <td>{{item}}</td>
+            <td>{{#dificultad}}{{.}}{{/dificultad}}{{^dificultad}}-{{/dificultad}}</td>
+            <td>{{estado}}</td>
+            <td>{{#diaAcabado}}{{.}}{{/diaAcabado}}{{^diaAcabado}}-{{/diaAcabado}}</td>
+            <td>{{#encargado}}{{username}}{{/encargado}}{{^encargado}}-{{/encargado}}</td>
+            <td>{{#encargado}}{{#email}}{{.}}{{/email}}{{^email}}User deleted{{/email}}{{/encargado}}{{^encargado}}-{{/encargado}}</td>
+            <td>{{sprint.numeroSprint}}</td>
+        </tr>
+        {{/listaItems}}
+    </tbody>
+</table>
+        </div>
+    </div>
+</div>
+
+
+{{^listaItems}}
+Todavía no hay historial
+{{/listaItems}}
+{{ > fragments/footer}}

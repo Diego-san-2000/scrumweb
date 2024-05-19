@@ -1,0 +1,57 @@
+{{> fragments/header_inside}}
+<div class="container contenedor-proyecto text-center mx-auto">
+    <h1 class="text-center mt-4">{{proyecto.nombre}} - Sprint {{proyecto.numeroSprint}}
+      <br>
+        ({{sprint.inicioSprint}} - {{sprint.finSprint}} )</h1>
+        <div class="row mt-4 mb-4">
+          <div class="col-lg-3">
+              <h2>
+                  {{#proyecto.dailyActual}}<i class="bi bi-check2"></i>{{/proyecto.dailyActual}}
+                  {{^proyecto.dailyActual}}<i class="bi bi-x-circle"></i>{{/proyecto.dailyActual}}
+                  Daily
+              </h2>
+          </div>
+          <div class="col-lg-3">
+              <h2>
+                  {{#proyecto.reviewActual}}<i class="bi bi-check2"></i>{{/proyecto.reviewActual}}
+                  {{^proyecto.reviewActual}}<i class="bi bi-x-circle"></i>{{/proyecto.reviewActual}}
+                  Review
+              </h2>
+          </div>
+          <div class="col-lg-3">
+            <h2>
+                {{#proyecto.retrospectiveActual}}<i class="bi bi-check2"></i>{{/proyecto.retrospectiveActual}}
+                {{^proyecto.retrospectiveActual}}<i class="bi bi-x-circle"></i>{{/proyecto.retrospectiveActual}}
+                Retrospective
+            </h2>
+        </div>
+        </div>
+    <div class="container col-lg-10">
+        <table class="table" aria-describedby="Personas asignadas a este proyecto">
+            <thead>
+              <tr>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col">SubTeam</th>
+                <th scope="col">Role</th>
+                <th scope="col">Edit user</th>
+              </tr>
+            </thead>
+            <tbody>
+                {{#proyecto.personas}}
+              <tr>
+                <td>{{username}}</td>
+                <td>{{email}}</td>
+                <td>{{#scrumSubTeam}}{{.}}{{/scrumSubTeam}}{{^scrumSubTeam}}-{{/scrumSubTeam}}</td>
+                <td>{{rol}}</td>
+                <td><a href="/usuario/{{id}}/editar" class="btn btn-red m-0">Edit</a><td>
+              </tr>
+              {{/proyecto.personas}}
+            </tbody>
+            
+          </table>
+          <a href="/proyecto/{{proyecto.id}}/editar" class="btn btn-red">Edit project </a>
+    </div>
+</div>
+
+{{> fragments/footer}}

@@ -1,0 +1,44 @@
+server:
+  error.whitelabel.enabled: false
+  address: localhost
+  path: /error
+  #servlet.session.timeout: 2592000
+
+api:
+  baseurl: http://localhost:8080/
+
+logging:
+  level:
+    # Set the default log level for all components
+    root: INFO
+  # Log to the console as well (optional)
+  console:
+    enabled: true
+    pattern:
+      "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+
+spring:
+  config:
+    additional-location: classpath:application-secrets.properties
+  servlet.multipart:
+    max-file-size: 2048KB
+    max-request-size: 2048KB
+  devtools:
+    restart:
+      enabled: true
+  mustache:
+    suffix: .html
+  datasource:
+      url: jdbc:mysql://localhost:3306/scrum?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
+      username: root
+      password: 
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      inicialization-mode: always
+  session:
+    store-type: jdbc
+    jdbc.initialize-schema: always
+  jpa:
+      show-sql: true
+      hibernate:
+          ddl-auto: update
+          naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy

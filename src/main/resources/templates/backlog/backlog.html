@@ -1,0 +1,97 @@
+{{> fragments/header_inside}}
+    <div class="container justify-content-center">
+        <div class="row">
+            <h1 class="text-center">Kanban board</h1>
+            <h2 class="mb-4 text-center">{{proyecto.nombre}} - Sprint {{proyecto.numeroSprint}}</h2>
+            <div class="col-lg-4 contenedor">
+                <h2 class="text-center mt-4">To Do</h2>
+                <ul class="pe-4 mb-4">
+                    {{#todo}}
+                    <li class="item-backlog mt-3">
+                        Item: {{item}}
+                        <br>
+                        Order: {{orden}}
+                    </li>
+                    {{/todo}}
+                </ul>
+                {{^todo}}
+                {{/todo}}
+            </div>
+            <div class="col-lg-4 contenedor">
+                <h2 class="text-center mt-4">Doing</h2>
+                <ul id="doing" class="pe-4 mb-4">
+                    {{#doing}}
+                    <li class="item-backlog mt-3">
+                        Item: {{item}}
+                        <br>
+                        Order: {{orden}}
+                        <br>
+                        Estimation: {{dificultad}}
+                        <br>
+                        In charge: {{encargado.username}}
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <a class="btn btn-red {{encargado.email}}" href="/backlog/{{idProyecto}}/finalizar/{{id}}">Finish</a>
+                            </div>
+                        </div>
+                    </li>
+                    {{/doing}}
+                </ul>
+                {{^doing}}
+                {{/doing}}
+            </div>
+            <div class="col-lg-4 contenedor">
+                <h2 class="text-center mt-4">Done</h2>
+                <ul class="pe-4 mb-4">
+                {{#done}}
+                <li class="item-backlog mt-3">
+                    Item: {{item}}
+                    <br>
+                    Order: {{orden}}
+                    <br>
+                    Estimation: {{dificultad}}
+                    <br>
+                    Done by: {{encargado.username}}
+                </li>
+                {{/done}}
+                </ul>
+                {{^done}}
+                {{/done}}
+            </div>
+        </div>
+    </div>
+    <div class="container mt-4">
+        <div class="row justify-content-center text-center">
+            <div class="col-lg-2">
+                <a href="/backlog/{{proyecto.id}}/historial" class="btn btn-red">History</a>
+                
+            </div>
+            <div class="col-lg-2">
+                <a href="/backlog/{{proyecto.id}}/editar" class="btn btn-red">Edit Kanban board</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        var container = document.getElementById('doing');
+        // Get all anchor tags
+        var allLinks = container.querySelectorAll('a');
+
+        // Loop through each anchor tag
+        allLinks.forEach(function(link) {
+            // Check if the anchor tag does not have the specified class
+            if (!link.classList.contains('{{u.email}}')) {
+                link.classList.add("d-none");
+                console.log("Desactivando" + link);
+                // Disable the anchor tag
+                link.addEventListener('click', function(event) {
+                    // Prevent the default behavior (e.g., navigating to a new page)
+                    event.preventDefault();
+                    link.style.cursor = 'not-allowed';
+
+                    // You can also remove the click event listener if needed
+                    link.removeEventListener('click', handleClick);
+                });
+            }
+        });
+    </script>
+{{> fragments/footer}}

@@ -1,0 +1,201 @@
+{{> fragments/header_inside}}
+    <div class="container">
+        <h1 class="text-center">Planning Poker</h1>
+        <div class="row justify-content-center">
+            <div class="col-lg-3">
+                <h2 class="text-center">Product Backlog</h2>
+                <ul id="tareas" class="contenedor-items">
+                    {{#todo}}
+                    <li id="tarea-todo-{{id}}" class="item-backlog mt-4" style="display: block;">
+                        Item: <span>{{item}}</span>
+                        <br>
+                        Order: <span id="orden-{{id}}">{{orden}}</span>
+                        <br>
+                        <button class="btn btn-red btn-pb"  onclick="sendClasificar({{id}})">Rate</button>
+                    </li>
+                    {{/todo}}
+                    {{#doing}}
+                    <li id="tarea-todo-{{id}}" class="item-backlog mt-4" style="display: none;">
+                        Item: <span>{{item}}</span>
+                        <br>
+                        Order: <span id="orden-{{id}}">{{orden}}</span>
+                        <br>
+                        <button class="btn btn-red btn-pb"  onclick="sendClasificar({{id}})">Rate</button>
+                    </li>
+                    {{/doing}}
+                </ul>
+            </div>
+            <div class="col-lg-6">
+                <h2 class="text-center">Information</h2>
+                <ul id="paravotar">
+                {{#todo}}
+                    <li id="tarea-votando-{{id}}" class="item-backlog" style="display: none;">
+                        Item: {{item}}
+                        <br>
+                        Order: {{orden}}
+                        <br>
+                        <button class="btn btn-red"  onclick="sendDevolverTarea({{id}})">Return</button>
+                    </li>
+                {{/todo}}
+                {{#doing}}
+                    <li id="tarea-votando-{{id}}" class="item-backlog mt-4" style="display: none;">
+                        Item: {{item}}
+                        <br>
+                        Order: {{orden}}
+                        <br>
+                        <button class="btn btn-red"  onclick="sendDevolverTarea({{id}})">Return</button>
+                    </li>
+                {{/doing}}
+                </ul>
+                <div id="messages">
+                    <table class="table table-bordered table-striped table-hover" aria-describedby="Votaciones">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">User</th>
+                                <th scope="col">Has estimated</th>
+                                <th scope="col">Estimation</th>
+                                <th scope="col">Split item</th>
+                                <th scope="col">Call Scrum Master</th>
+                                <th scope="col">Save</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#listaUsuarios}}
+                            <tr>
+                                <td>{{username}}</td>
+                                <td class="votacion-votos"><i id="votacion-{{id}}" class="bi bi-x-circle"></i></td>
+                                <td id="valor-{{id}}" class="votacion-voto" style="visibility: hidden;"></td>
+                                <td id="dividir-{{id}}" class="dividir-sm">
+                                    <i id="votacion-dividir-{{id}}" class="bi bi-x-circle"></i>
+                                </td>
+                                <td id="sm-{{id}}" class="votacion-sm">
+                                    <i id="votacion-sm-{{id}}" class="bi bi-x-circle"></i>
+                                </td>
+                                <td id="guardar-{{id}}" class="votacion-guardar">
+                                    <i id="votacion-guardar-{{id}}" class="bi bi-x-circle"></i>
+                                </td>
+                            </tr>
+                            {{/listaUsuarios}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <h2 class="text-center">Sprint Backlog</h2>
+                <span id="email" style="display:none;">{{u.email}}</span>
+                <ul id="clasificados" class="contenedor-items">
+                    {{#todo}}
+                    <li id="tarea-votado-{{id}}" class="item-backlog mt-4" style="display: none;">
+                        Item: <span>{{item}}</span>
+                        <br>
+                        Order: <span>{{orden}}</span>
+                        <br>
+                        Estimation: <span id="dificultad-{{id}}"></span>
+                        <br>
+                        In charge: <span id="asignado-{{id}}"></span>
+                        <br>
+                        <button class="btn btn-red"  onclick="sendDevolverTarea({{id}})">Return</button>
+                        <button class="btn btn-red"  onclick="sendAsignar({{id}})">Assign</button>
+                    </li>
+                    {{/todo}}
+                    {{#doing}}
+                    <li id="tarea-votado-{{id}}" class="item-backlog mt-4" style="display: block;">
+                        Item: <span>{{item}}</span>
+                        <br>
+                        Order: <span>{{orden}}</span>
+                        <br>
+                        Estimation: <span id="dificultad-{{id}}">{{dificultad}}</span>
+                        <br>
+                        In charge: <span id="asignado-{{id}}">{{encargado.email}}</span>
+                        <br>
+                        <button class="btn btn-red"  onclick="sendDevolverTarea({{id}})">Return</button>
+                        <button class="btn btn-red"  onclick="sendAsignar({{id}})">Assign</button>
+                    </li>
+                    {{/doing}}
+                </ul>
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                    <h2 class="text-center">Sprint Goal</h2>
+                    <textarea id="textarea">{{#sprint.sprintGoal}}{{.}}{{/sprint.sprintGoal}}{{^sprint.sprintGoal}}{{/sprint.sprintGoal}}</textarea>
+                    <button class="btn btn-red" onclick="guardarGoal({{sprint.id}})">Save Sprint Goal</button>
+                </div>
+            </div>
+
+            </div>
+            <p id="texto-dividir-tarea" class="text-center"></p>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Split item</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-floating mb-3">
+                            <input class="form-control" type="text" placeholder="Sub Tarea 1" id="subTarea1" required="">
+                            <label for="subTarea1">Subitem 1</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input class="form-control" type="text" placeholder="Sub Tarea 2" id="subTarea2" required="">
+                            <label for="subTarea2">Subitem 2</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-red" data-bs-dismiss="modal" onclick="enviarFraccionarTarea('{{u.username}}', '{{id_usuario}}')">Split item</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row contenedor-botones-votar justify-content-center">
+            <h3 class="text-center">Estimate</h3>
+            <button class="btn btn-red voto" onclick="sendVotacion({{id_usuario}}, 0)" disabled>0</button>
+            <button class="btn btn-red voto" onclick="sendVotacion({{id_usuario}}, 1)" disabled>1</button>
+            <button class="btn btn-red voto" onclick="sendVotacion({{id_usuario}}, 2)" disabled>2</button>
+            <button class="btn btn-red voto" onclick="sendVotacion({{id_usuario}}, 3)" disabled>3</button>
+            <button class="btn btn-red voto" onclick="sendVotacion({{id_usuario}}, 5)" disabled>5</button>
+            <button class="btn btn-red voto" onclick="sendVotacion({{id_usuario}}, 8)" disabled>8</button>
+            <button class="btn btn-red voto" onclick="sendVotacion({{id_usuario}}, 13)" disabled>13</button>
+            <button class="btn btn-red voto" onclick="sendVotacion({{id_usuario}}, 20)" disabled>20</button>
+            <button class="btn btn-red voto" onclick="sendVotacion({{id_usuario}}, 40)" disabled>40</button>
+            <button class="btn btn-red voto" onclick="sendVotacion({{id_usuario}}, 100)" disabled>100</button>
+            <button class="btn btn-red voto contenedor-botones-borrar" onclick="sendBorrar()">Delete estimations</button>
+        </div>
+        <div class="row contenedor-botones-votar justify-content-center mt-4">
+            <div class="col-lg-4">
+            <h3 class="text-center">Other options</h3>
+            <button id="boton-dividir" class="btn btn-red btn-large" onclick="sendDividirTarea({{id_usuario}})" data-bs-toggle="modal" data-bs-target="#exampleModal" disabled>Split item</button>
+            <button class="btn btn-red btn-large" onclick="sendAvisarSM({{id_usuario}})">Call Scrum Master</button>
+        
+            </div>
+            <div class="col-lg-4">
+                <h3 class="text-center">Save</h3>
+        <input type="checkbox" id="cbox1">
+        <label for="cbox1">Why is this Sprint valuable?</label>
+        <br>
+        <input type="checkbox" id="cbox2">
+        <label for="cbox2">What can be Done this Sprint?</label>
+        <br>
+        <input type="checkbox" id="cbox3">
+        <label for="cbox3">How will the chosen work get done?</label>
+        <br>
+        <div class="text-center">
+            <button id="guardar" class="btn btn-red btn-large" onclick="sendGuardar({{id_usuario}}, {{sprint.id}})">Save</button>
+        </div>
+        </div>
+            
+       
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js" integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/js/planningpoker/websocket.js"></script>
+    <script src="/js/planningpoker/planningpoker.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            connect({{proyecto.id}});
+        });
+    </script>
+{{> fragments/footer}}

@@ -1,0 +1,17 @@
+{{> fragments/header_inside}}
+<div class="container">
+    <div class="row">
+        <h1 class="text-center">Stakeholders map</h1>
+        <h2 class="text-center mt-4">{{proyecto.nombre}}</h2>
+        <div class="col-lg-12 contenedor-stakeholdersmap">
+            {{#stakeholders}}
+            <p class="stakeholdername">
+                {{username}}
+            </p>
+            {{/stakeholders}}
+            {{^stakeholders}}
+            {{/stakeholders}}
+        </div>
+    </div>
+</div>
+{{> fragments/footer}}

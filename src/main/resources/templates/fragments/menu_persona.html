@@ -1,0 +1,68 @@
+<header class="sticky-top">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a href="/">
+                  <img class="logo" src="/img/logo.png" alt="">
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/login">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/rol">Control panel</a>
+              </li>
+
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Agility
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown3">
+                  <li><a class="dropdown-item" href="/backlog/{{proyecto.id}}">Kanban board</a></li>
+                  <li><a class="dropdown-item" href="/planningpoker/{{proyecto.id}}">Planning Poker</a></li>
+                  <li><a class="dropdown-item" href="/proyecto/{{proyecto.id}}/starfish">Starfish retrospective</a></li>
+                  <li><a class="dropdown-item" href="/grafica/{{proyecto.id}}">Graphs</a></li>
+                </ul>
+              </li>
+
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Creativity
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown3">
+                  <li><a class="dropdown-item" href="/stakeholdermap">Stakeholders map</a></li>
+                  <li><a class="dropdown-item" href="/{{proyecto.id}}/businesscanvas">Business canvas</a></li>
+                  <li><a class="dropdown-item" href="/{{proyecto.id}}/blueprint">Service blueprint</a></li>
+                </ul>
+              </li>
+
+            </ul>
+          </div>
+          <div class="bienvenido">
+            <div class="row">
+              <div class="col-lg-9">
+            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Welcome, {{#u}}{{username}}{{/u}}
+            </a>
+            <ul class="dropdown-menu dropdown-right" aria-labelledby="navbarDropdown4">
+              <li class="texto-dropdown">{{#u}}your role is {{rol}}{{/u}}{{^u}}Business{{/u}}</li>
+              <li><a class="dropdown-item" href="/usuario/{{u.id}}/editar">Edit profile</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/logout">Log out</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3">
+            <img class="imagen-menu"
+            {{#imagenUsuario}} src="data:image/jpg;base64, {{.}}" alt=""{{/imagenUsuario}}
+            {{^imagenUsuario}}src="/img/usuarios/usuario_sin_foto.jpg" {{/imagenUsuario}}>
+          </div>
+      </div>
+      </div>
+        </div>
+      </nav>
+</header>

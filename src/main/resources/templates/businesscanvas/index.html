@@ -1,0 +1,64 @@
+{{> fragments/header_inside}}
+<div class="container">
+    <h1 class="text-center">Business canvas</h1>
+    <h2 class="text-center mt-4">{{proyecto.nombre}}</h2>
+    <div class="row mt-4">
+        <div class="col-lg-12">
+            <div class="row contenedor-business-canvas">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-2 canva p-0">
+                    <h6>Key Partners</h6>
+                    <textarea id="keyPartners">{{#keyPartners}}{{.}}{{/keyPartners}}{{^keyPartners}}{{/keyPartners}}</textarea>
+                </div>
+                <div class="col-lg-2 p-0">
+                    <div class="col-lg-12 min-canva border-start-0 border-end-0 border-bottom-0">
+                        <h6>Key Activities</h6>
+                        <textarea id="keyActivities">{{#keyActivities}}{{.}}{{/keyActivities}}{{^keyActivities}}{{/keyActivities}}</textarea>
+                    </div>
+                    <div class="col-lg-12 min-canva border-start-0 border-end-0">
+                        <h6>Key Resources</h6>
+                        <textarea id="keyResources">{{#keyResources}}{{.}}{{/keyResources}}{{^keyResources}}{{/keyResources}}</textarea>
+                    </div>
+                </div>
+                <div class="col-lg-2 p-0 canva">
+                    <h6>Value Propositions</h6>
+                    <textarea id="valuePropositions">{{#valuePropositions}}{{.}}{{/valuePropositions}}{{^valuePropositions}}{{/valuePropositions}}</textarea>
+                </div>
+                <div class="col-lg-2 p-0">
+                    <div class="col-lg-12 min-canva min-canva border-start-0 border-end-0 border-bottom-0">
+                        <h6>Customer Relationships</h6>
+                        <textarea id="customerRelationships">{{#customerRelationships}}{{.}}{{/customerRelationships}}{{^customerRelationships}}{{/customerRelationships}}</textarea>
+                    </div>
+                    <div class="col-lg-12 p-0 min-canva border-start-0 border-end-0">
+                        <h6>Channels</h6>
+                        <textarea id="channels">{{#channels}}{{.}}{{/channels}}{{^channels}}{{/channels}}</textarea>
+                    </div>
+                </div>
+                <div class="col-lg-2 p-0 canva">
+                    <h6>Customers Segments</h6>
+                    <textarea id="customersSegments">{{#customersSegments}}{{.}}{{/customersSegments}}{{^customersSegments}}{{/customersSegments}}</textarea>
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+            <div class="row contenedor-business-canvas">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-5 p-0 min-canva border-end-0 border-top-0">
+                    <h6>Cost Structure</h6>
+                    <textarea id="costStructure">{{#costStructure}}{{.}}{{/costStructure}}{{^costStructure}}{{/costStructure}}</textarea>
+                </div>
+                <div class="col-lg-5 p-0 min-canva border-top-0">
+                    <h6>Revenue Streams</h6>
+                    <textarea id="revenueStreams">{{#revenueStreams}}{{.}}{{/revenueStreams}}{{^revenueStreams}}{{/revenueStreams}}</textarea>
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="mt-4">
+            <button type="button" class="btn btn-red" onclick="guardarBusinessCanvas({{businessCanvas.id}})">Save</button>
+        </div>
+    </div>
+</div>
+<script src="/js/proyecto/businesscanvas.js"></script>
+{{> fragments/footer}}

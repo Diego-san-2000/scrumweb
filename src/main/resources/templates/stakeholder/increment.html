@@ -1,0 +1,45 @@
+{{> fragments/header_inside}}
+<div class="container">
+    <div class="row">
+        <h1 class="text-center">Increments</h1>
+        <h2 class="text-center mt-4">Proyecto {{proyecto.nombre}}</h2>
+        <div class="col-lg-12">
+            {{#hayIncrement}}
+            <table class="table table-bordered table-striped table-hover mt-4" aria-describedby="Votaciones">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">orden</th>
+            <th scope="col">item</th>
+            <th scope="col">Dificultad</th>
+            <th scope="col">Orden</th>
+            <th scope="col">Día Acabado</th>
+            <th scope="col">Encargado</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Sprint</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#listaItems}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{orden}}</td>
+            <td>{{item}}</td>
+            <td>{{#dificultad}}{{.}}{{/dificultad}}{{^dificultad}}No asignada{{/dificultad}}</td>
+            <td>{{orden}}</td>
+            <td>{{#diaAcabado}}{{.}}{{/diaAcabado}}{{^diaAcabado}}No acabado{{/diaAcabado}}</td>
+            <td>{{#encargado}}{{username}}{{/encargado}}{{^encargado}}No asignado{{/encargado}}</td>
+            <td>{{#encargado}}{{#email}}{{.}}{{/email}}{{^email}}Usuario borrado{{/email}}{{/encargado}}{{^encargado}}No asignado{{/encargado}}</td>
+            <td>{{sprint.numeroSprint}}</td>
+        </tr>
+        {{/listaItems}}
+    </tbody>
+</table>
+{{/hayIncrement}}
+{{^hayIncrement}}
+<h3 class="text-center mt-4">Todavía no hay Increments disponibles</h3>
+{{/hayIncrement}}
+        </div>
+    </div>
+</div>
+{{> fragments/footer}}

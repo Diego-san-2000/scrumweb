@@ -1,0 +1,210 @@
+{{> fragments/header_inside}}
+
+<div class="container contenedor-proyecto text-center mx-auto">
+    <h1 class="mt-4">{{proyecto.nombre}} - Sprint {{proyecto.numeroSprint}}
+        <br>
+        ({{inicioSprint}} - {{finSprint}} )</h1>
+    <div class="row mt-4 mb-4">
+        <div class="col-lg-3">
+            <h2>
+                {{#proyecto.dailyActual}}<i class="bi bi-check2"></i>{{/proyecto.dailyActual}}
+                {{^proyecto.dailyActual}}<i class="bi bi-x-circle"></i>{{/proyecto.dailyActual}}
+                Daily
+            </h2>
+            {{#scrumMaster}}
+            <button type="button" class="btn btn-red" data-bs-toggle="modal" data-bs-target="#modalDaily">
+                Go to the Daily
+            </button>
+            <!-- Modal Daily -->
+            <div class="modal fade" id="modalDaily" tabindex="-1" aria-labelledby="modalDaily" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalDaily">Daily control</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>You are in the Daily meeting</p>
+                            <div id="cronodaily">00:15:00</div>
+                            <button class="btn btn-red" onclick="iniciarCronometro(15, 'cronodaily')">Start</button>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-red" data-bs-dismiss="modal">Cancel</button>
+                        <a href="/proyecto/{{proyecto.id}}/realizardaily" class="btn btn-red">Daily done</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/scrumMaster}}
+            {{^scrumMaster}}
+            <button type="button" class="btn btn-red">
+                Go to the Daily
+            </button>
+            {{/scrumMaster}}
+        </div>
+        <div class="col-lg-3">
+            <h2>
+                {{#proyecto.reviewActual}}<i class="bi bi-check2"></i>{{/proyecto.reviewActual}}
+                {{^proyecto.reviewActual}}<i class="bi bi-x-circle"></i>{{/proyecto.reviewActual}}
+                Review
+            </h2>
+            {{#scrumMaster}}
+            <button type="button" class="btn btn-red" data-bs-toggle="modal" data-bs-target="#modalReview">
+               Go to the Review
+            </button>
+            <!-- Modal Review -->
+            <div class="modal fade" id="modalReview" tabindex="-1" aria-labelledby="modalReview" aria-hidden="true">
+                <div class="modal-dialog  modal-ampliado">
+                    <div class="col-lg-6 modal-content">
+                        <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalReview">Review control</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body row">
+                            <div class="col-lg-4">
+                                <h2 class="text-center">Definition of Done</h2>
+                                <textarea class="textarea mb-4" readonly>{{#proyecto.definitionOfDone}}{{.}}{{/proyecto.definitionOfDone}}{{^proyecto.definitionOfDone}}{{/proyecto.definitionOfDone}}</textarea>
+                            </div>
+                            <div class="col-lg-8">
+                            <h3 class="text-center">Increments done</h3>
+                            <table class="table table-bordered table-striped table-hover" aria-describedby="Votaciones">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">Item</th>
+                                        <th scope="col">Done by</th>
+                                        <th scope="col">Reject</th>
+                                        <th scope="col">Accept</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#increments}}
+                                    <tr id="fila-{{id}}">
+                                        <td>{{item}}</td>
+                                        <td>{{encargado.email}}</td>
+                                        <td>
+                                            <button class="btn btn-red"
+                                            onclick="modificar({{id}}, 'rechazar')">Reject</button>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-red"
+                                             onclick="modificar({{id}}, 'aceptar')">Accept</button>
+                                        </td>
+                                    </tr>
+                                    {{/increments}}
+                                </tbody>
+                            </table>
+                            {{^increments}}
+                            <p>No Increments done yet.</p>
+                            {{/increments}}
+                            <p>You are in the Review meeting</p>
+                            <div id="cronoreview">03:00:00</div>
+                            <button class="btn btn-red" onclick="iniciarCronometro(3*60, 'cronoreview')">Start</button>
+                        </div>
+                        <div class="modal-footer">
+                        <a href="/proyecto/{{proyecto.id}}/enviarincrement" class="btn btn-red">Send increment to Stakeholders</a>
+
+                        <a href="/proyecto/{{proyecto.id}}/realizarreview" class="btn btn-red">Review done</a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            {{/scrumMaster}}
+            {{^scrumMaster}}
+            <button type="button" class="btn btn-red">
+                Go to the Review
+            </button>
+            {{/scrumMaster}}
+        </div>
+        <div class="col-lg-3">
+            <h2>
+                {{#proyecto.retrospectiveActual}}<i class="bi bi-check2"></i>{{/proyecto.retrospectiveActual}}
+                {{^proyecto.retrospectiveActual}}<i class="bi bi-x-circle"></i>{{/proyecto.retrospectiveActual}}
+                Retrospective
+            </h2>
+            {{#scrumMaster}}
+            <button type="button" class="btn btn-red" data-bs-toggle="modal" data-bs-target="#modalretrospective">
+                Go to the Retrospective
+            </button>
+            <!-- Modal Retrospective -->
+            <div class="modal fade" id="modalretrospective" tabindex="-1" aria-labelledby="modalretrospective" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalretrospective">Retrospective control</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>You are in the Retrospective meeting</p>
+                            <div id="cronoretrospective">03:00:00</div>
+                            <button class="btn btn-red" onclick="iniciarCronometro(3*60, 'cronoretrospective')">Iniciar</button>
+                        </div>
+                        <div class="modal-footer">
+                        <a href="/proyecto/{{proyecto.id}}/realizarretrospective" class="btn btn-red">Retrospective done</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/scrumMaster}}
+            {{^scrumMaster}}
+            <button type="button" class="btn btn-red">
+                Go to the Retrospective
+            </button>
+            {{/scrumMaster}}
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        {{#scrumMaster}}
+        <div class="col-lg-2">
+            <a href="/proyecto/{{proyecto.id}}/finalizar" class="btn btn-red">Finish Sprint</a>
+        </div>
+        {{/scrumMaster}}
+        {{^scrumMaster}}
+        {{/scrumMaster}}
+    </div>
+           <div class="row justify-content-center mt-4">
+            <div class="col-lg-6">
+        <h2 class="text-center">Pending tasks</h2>
+        {{#hayTareas}}
+        <table class="table table-bordered table-striped table-hover mt-4" aria-describedby="Votaciones">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Item</th>
+                    <th scope="col">Difficulty</th>
+                    <th scope="col">Order</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#tareas}}
+                <tr>
+                    <td>{{item}}</td>
+                    <td>{{dificultad}}</td>
+                    <td>{{orden}}</td>
+                </tr>
+                {{/tareas}}
+            </tbody>
+        </table>
+        {{/hayTareas}}
+        {{^hayTareas}}
+        No pending tasks
+        {{/hayTareas}}
+            </div>
+            <div class="col-lg-6">
+        <h2 class="text-center">Definition of done</h2>
+        <textarea class="textarea" readonly>{{#proyecto.definitionOfDone}}{{.}}{{/proyecto.definitionOfDone}}{{^proyecto.definitionOfDone}}{{/proyecto.definitionOfDone}}
+        </textarea>
+    </div>
+</div>
+<div class="row justify-content-center mt-4">
+    <div class="col-lg-6 p-4">
+        <h2 class="text-center">Product goal</h2>
+        <textarea class="textarea" readonly>{{#proyecto.productGoal}}{{.}}{{/proyecto.productGoal}}{{^proyecto.productGoal}}{{/proyecto.productGoal}}</textarea>
+    </div>
+    <div class="col-lg-6 p-4">
+        <h2 class="text-center">Sprint goal</h2>
+        <textarea class="textarea" readonly>{{#sprint.sprintGoal}}{{.}}{{/sprint.sprintGoal}}{{^sprint.sprintGoal}}{{/sprint.sprintGoal}}</textarea>
+    </div>
+</div>
+</div>
+<script src="/js/panel.js"></script>
+{{> fragments/footer}}

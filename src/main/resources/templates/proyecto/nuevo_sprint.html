@@ -1,0 +1,26 @@
+{{> fragments/header}}
+
+<div class="container">
+    <h1 class="text-center">Proyecto {{proyecto.nombre}}</h1>
+    <div class="row mt-4">
+        <div class="col-lg-6">
+            <h2 class="text-center">
+                Finalizando el Sprint {{proyecto.numeroSprint}}
+            </h2>
+        </div>
+        <div class="col-lg-6">
+            <form action="/proyecto/{{proyecto.id}}/finalizar" method="post">
+                <div class="form-floating mb-3">
+                    <input class="form-control" id="inicioSprint" type="date" placeholder="Inicio Sprint" name="inicioSprint" required  value="{{fechaCrear}}" />
+                    <label for="inicioSprint">Inicio Sprint</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input class="form-control" id="finSprint" type="date" placeholder="Fin Sprint" name="finSprint" required  value="{{fechaFinalizar}}" />
+                    <label for="finSprint">Fin Sprint</label>
+                </div>
+                <button class="btn btn-red" type="submit">Crear Sprint</button>
+            </form>
+        </div>
+    </div>
+</div>
+{{> fragments/footer}}
